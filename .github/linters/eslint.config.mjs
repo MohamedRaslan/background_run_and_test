@@ -19,8 +19,8 @@ export default [
       parserOptions: {
         ecmaVersion: 2023,
         sourceType: 'module',
-        project: ['./tsconfig.json'], // Adjust this path if needed
-        tsconfigRootDir: process.cwd()
+        project: ['./tsconfig.json'] // Adjust this path if needed
+        //  tsconfigRootDir: process.cwd()
       },
       globals: {
         ...globals.node,
