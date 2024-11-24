@@ -5,10 +5,10 @@ import path from 'node:path'
 import { ping } from './ping'
 import Debug from 'debug'
 
-const debug = Debug('backgrond_run_and_test')
+const debug = Debug('background_run_and_test')
 
-//const homeDirectory = os.homedir()
-//const platformAndArch = `${process.platform}-${process.arch}`
+// const homeDirectory = os.homedir()
+// const platformAndArch = `${process.platform}-${process.arch}`
 
 const startWorkingDirectory = process.cwd()
 // seems the working directory should be absolute to work correctly
@@ -66,7 +66,7 @@ const getInputBool = (name: string, defaultValue = false): boolean => {
  * The main function for the testing action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-async function runTest(): Promise<(number | undefined)[] | undefined> {
+async function runTest(): Promise<Array<number | undefined> | undefined> {
   let userCommand
   const shouldRun = getInputBool('command-if', true)
 
@@ -82,7 +82,7 @@ async function runTest(): Promise<(number | undefined)[] | undefined> {
   }
 
   if (!shouldRun) {
-    console.log(`skip running the commands`)
+    console.log('skip running the commands')
     return
   }
   // allow commands to be separated using commas or newlines
@@ -104,7 +104,7 @@ async function runTest(): Promise<(number | undefined)[] | undefined> {
 }
 
 const startServersMaybe = async (): Promise<
-  (number | undefined)[] | undefined
+  Array<number | undefined> | undefined
 > => {
   let userStartCommand
   const shouldStart = getInputBool('start-if', true)
@@ -121,7 +121,7 @@ const startServersMaybe = async (): Promise<
   }
 
   if (!shouldStart) {
-    console.log(`skip running the start commands`)
+    console.log('skip running the start commands')
     return
   }
 
@@ -139,7 +139,7 @@ const startServersMaybe = async (): Promise<
 
   return await Promise.all(
     separateStartCommands.map(async startCommand => {
-      return await execCommand(startCommand, false, `start server`)
+      return await execCommand(startCommand, false, 'start server')
     })
   )
 }
@@ -160,14 +160,14 @@ const waitOnUrl = async (waitOn: string, waitOnTimeout = 60): Promise<void> => {
     .filter(Boolean)
   debug(`Waiting for urls ${waitUrls.join(', ')}`)
 
-  return ping(waitUrls, waitTimeoutMs)
+  return await ping(waitUrls, waitTimeoutMs)
 }
 
 const waitOnMaybe = async (): Promise<number | void> => {
   const waitOn = core.getInput('wait-on')
   const shouldWait = getInputBool('wait-if', true)
   if (!waitOn || !shouldWait) {
-    if (!shouldWait) console.log(`skip waiting on the required resources`)
+    if (!shouldWait) console.log('skip waiting on the required resources')
 
     return
   }
@@ -178,11 +178,11 @@ const waitOnMaybe = async (): Promise<number | void> => {
   console.log(`will wait for ${timeoutSeconds} sec`)
 
   if (isUrl(waitOn)) {
-    return waitOnUrl(waitOn, timeoutSeconds)
+    return await waitOnUrl(waitOn, timeoutSeconds)
   }
 
   console.log(`waiting using command ${waitOn}`)
-  return execCommand(waitOn, true)
+  return await execCommand(waitOn, true)
 }
 /**
  * The main function for the action.

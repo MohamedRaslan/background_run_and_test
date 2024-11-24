@@ -1,16 +1,16 @@
 # Background Run & Test GitHub Action
 
-[![GitHub stars](https://img.shields.io/github/stars/MohamedRaslan/backgrond_run_and_test)](https://github.com/MohamedRaslan/backgrond_run_and_test/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/MohamedRaslan/backgrond_run_and_test)](https://github.com/MohamedRaslan/backgrond_run_and_test/network)
-[![GitHub issues](https://img.shields.io/github/issues/MohamedRaslan/backgrond_run_and_test)](https://github.com/MohamedRaslan/backgrond_run_and_test/issues)
-[![GitHub Release Date](https://img.shields.io/github/release-date/mohamedraslan/backgrond_run_and_test)](https://github.com/MohamedRaslan/backgrond_run_and_test/releases)
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mohamedraslan/backgrond_run_and_test)](https://github.com/MohamedRaslan/backgrond_run_and_test)
+[![GitHub stars](https://img.shields.io/github/stars/MohamedRaslan/background_run_and_test)](https://github.com/MohamedRaslan/background_run_and_test/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/MohamedRaslan/background_run_and_test)](https://github.com/MohamedRaslan/background_run_and_test/network)
+[![GitHub issues](https://img.shields.io/github/issues/MohamedRaslan/background_run_and_test)](https://github.com/MohamedRaslan/background_run_and_test/issues)
+[![GitHub Release Date](https://img.shields.io/github/release-date/mohamedraslan/background_run_and_test)](https://github.com/MohamedRaslan/background_run_and_test/releases)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mohamedraslan/background_run_and_test)](https://github.com/MohamedRaslan/background_run_and_test)
 
-[![Lint Codebase](https://github.com/MohamedRaslan/backgrond_run_and_test/actions/workflows/linter.yml/badge.svg)](https://github.com/MohamedRaslan/backgrond_run_and_test/actions/workflows/linter.yml)
-[![Dependabot Updates](https://github.com/MohamedRaslan/backgrond_run_and_test/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/MohamedRaslan/backgrond_run_and_test/actions/workflows/dependabot/dependabot-updates)
-[![Continuous Integration](https://github.com/MohamedRaslan/backgrond_run_and_test/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedRaslan/backgrond_run_and_test/actions/workflows/ci.yml)
-[![Check Transpiled JavaScript](https://github.com/MohamedRaslan/backgrond_run_and_test/actions/workflows/check-dist.yml/badge.svg)](https://github.com/MohamedRaslan/backgrond_run_and_test/actions/workflows/check-dist.yml)
-[![CodeQL](https://github.com/MohamedRaslan/backgrond_run_and_test/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MohamedRaslan/backgrond_run_and_test/actions/workflows/codeql-analysis.yml)
+[![Lint Codebase](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/linter.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/linter.yml)
+[![Dependabot Updates](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/dependabot/dependabot-updates)
+[![Continuous Integration](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/ci.yml)
+[![Check Transpiled JavaScript](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/check-dist.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/check-dist.yml)
+[![CodeQL](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/codeql-analysis.yml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
 GitHub Action to run a commands (e.g. a test) while also running another
@@ -55,7 +55,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run E2E Tests
-        uses: MohamedRaslan/backgrond_run_and_test@v1
+        uses: MohamedRaslan/background_run_and_test@v1
         with:
           start: yarn run start:apps:server:apps:server
           command: yarn run test:apps
@@ -75,7 +75,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run E2E Tests
-        uses: MohamedRaslan/backgrond_run_and_test@v1
+        uses: MohamedRaslan/background_run_and_test@v1
         with:
           start: yarn run app:api, yarn run app:web
           command: yarn run generate:docs, yarn run test:apps
@@ -97,7 +97,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run E2E Tests
-        uses: MohamedRaslan/backgrond_run_and_test@v1
+        uses: MohamedRaslan/background_run_and_test@v1
         with:
           start: yarn run start:apps:server:apps:server
           start-windows: yarn run start:apps:server:windows
@@ -120,7 +120,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run E2E Tests
-        uses: MohamedRaslan/backgrond_run_and_test@v1
+        uses: MohamedRaslan/background_run_and_test@v1
         with:
           cwd: ./packages/example
           start: yarn run start:apps:server:apps:server
@@ -141,7 +141,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run E2E Tests
-        uses: MohamedRaslan/backgrond_run_and_test@v1
+        uses: MohamedRaslan/background_run_and_test@v1
         with:
           start: yarn run start:apps:server
           wait-on: 'http://localhost:8080'
@@ -152,7 +152,7 @@ By default, wait-on will retry for 60 seconds. You can pass a custom timeout in
 seconds using `wait-on-timeout`.
 
 ```yaml
-- uses: MohamedRaslan/backgrond_run_and_test@v1
+- uses: MohamedRaslan/background_run_and_test@v1
     with:
       start: yarn run start:apps:server
       wait-on: 'http://localhost:8080'
@@ -164,7 +164,7 @@ seconds using `wait-on-timeout`.
 You can wait for multiple URLs to respond by separating URLs with a comma
 
 ```yaml
-- uses: MohamedRaslan/backgrond_run_and_test@v1
+- uses: MohamedRaslan/background_run_and_test@v1
     with:
       start: yarn run start:apps:server
       wait-on: 'http://localhost:8080, http://localhost:4000'
@@ -176,7 +176,7 @@ wait for a HEAD response st, you can make it wait for GET response instead as
 follow
 
 ```yaml
-- uses: MohamedRaslan/backgrond_run_and_test@v1
+- uses: MohamedRaslan/background_run_and_test@v1
     with:
       start: yarn run start:apps:server
       wait-on: 'http-get://localhost:8080, http://localhost:4000'
@@ -203,7 +203,7 @@ jobs:
         id: lint
         run: yarn run lint
       - name: Run E2E Tests
-        uses: MohamedRaslan/backgrond_run_and_test@v1
+        uses: MohamedRaslan/background_run_and_test@v1
         with:
           start: yarn run start:apps:server
           wait-if:
@@ -232,7 +232,7 @@ jobs:
         id: lint
         run: yarn run lint
       - name: Run E2E Tests
-        uses: MohamedRaslan/backgrond_run_and_test@v1
+        uses: MohamedRaslan/background_run_and_test@v1
         with:
           start: yarn run start:apps:server
           start-if:
@@ -250,7 +250,7 @@ jobs:
 ## :see_no_evil: Issues
 
 If you encounter any problems, please
-**[file an issue](https://github.com/MohamedRaslan/backgrond_run_and_test/issues)**
+**[file an issue](https://github.com/MohamedRaslan/background_run_and_test/issues)**
 along with a detailed description.
 
 ## :handshake: Contributing
@@ -262,7 +262,7 @@ Contributions are very welcome :heart:.
 - **[wait-on :heart_eyes:](https://github.com/jeffbski/wait-on)** by
   **[Jeff Barczewski](https://github.com/jeffbski)**
 - **[Cypress-io/GitHub Action :heart_eyes:](https://github.com/cypress-io/github-action)**
-- **[Background-Server-Action :heart_eyes:](https://github.com/MohamedRaslan/backgrond_run_and_test)**
+- **[Background-Server-Action :heart_eyes:](https://github.com/MohamedRaslan/background_run_and_test)**
   by **[Bernhard Wittmann](https://github.com/BerniWittmann)**
 - **[GitHub Docs - Createing Actions](https://docs.github.com/en/actions/creating-actions)**
 - **[Actions/Typescript-Action](actions/typescript-action)**
