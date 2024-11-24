@@ -1,17 +1,17 @@
 {
-  "name": "backgrond_run_and_test",
+  "name": "background_run_and_test",
   "description": "GitHub Action, That lets you run a background task, wait until it's becomes available, and then run your tests",
   "version": "1.0.0",
   "author": "MohamedRaslan",
   "private": true,
-  "homepage": "https://github.com/MohamedRaslan/backgrond_run_and_test",
+  "homepage": "https://github.com/MohamedRaslan/background_run_and_test",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MohamedRaslan/backgrond_run_and_test.git"
+    "url": "git+https://github.com/MohamedRaslan/background_run_and_test.git"
   },
   "bugs": {
-    "url": "https://github.com/MohamedRaslan/backgrond_run_and_test/issues"
+    "url": "https://github.com/MohamedRaslan/background_run_and_test/issues"
   },
   "keywords": [
     "actions",

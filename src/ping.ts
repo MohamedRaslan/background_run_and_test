@@ -1,6 +1,6 @@
 import Debug from 'debug'
 import waitOn from 'wait-on'
-const debug = Debug('backgrond_run_and_test')
+const debug = Debug('background_run_and_test')
 
 /**
  * A small utility for checking when resources responds,

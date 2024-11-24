@@ -5,7 +5,7 @@ import path from 'node:path'
 import { ping } from './ping'
 import Debug from 'debug'
 
-const debug = Debug('backgrond_run_and_test')
+const debug = Debug('background_run_and_test')
 
 //const homeDirectory = os.homedir()
 //const platformAndArch = `${process.platform}-${process.arch}`
