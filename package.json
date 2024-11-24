@@ -105,7 +105,7 @@
     "prettier-eslint": "^16.3.0",
     "semantic-release": "^24.0.0",
     "serve": "^14.2.3",
-    "ts-jest": "^29.2.3",
-    "typescript": "^5.5.4"
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2"
   }
 }
