@@ -7,7 +7,7 @@ const debug = Debug('background_run_and_test')
  * it uses the wait-on ( https://www.npmjs.com/package/wait-on )uder the under
  **/
 export const ping = async (
-  resource: string | Array<string>,
+  resource: string | string[],
   timeout = 10000, // wait for 10sec
   expectedStatus = 200,
   isInsecure = true,

@@ -45,7 +45,7 @@ rules:
     'no-unused-vars': 'off',
     'prettier/prettier': 'error',
     'semi': 'off',
-    '@typescript-eslint/array-type': ['error', { 'default': 'generic' }],
+    '@typescript-eslint/array-type': ['error', { 'default': 'array-simple' }],
     '@typescript-eslint/await-thenable': 'error',
     '@typescript-eslint/ban-ts-comment': 'error',
     '@typescript-eslint/consistent-type-assertions': 'error',
