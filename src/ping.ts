@@ -1,6 +1,6 @@
 import Debug from 'debug'
 import waitOn from 'wait-on'
-const debug = Debug('backgrond_run_and_test')
+const debug = Debug('background_run_and_test')
 
 /**
  * A small utility for checking when resources responds,
@@ -38,7 +38,7 @@ export const ping = async (
 
     // once here, all resources are available
   } catch (err) {
-    debug(`Failed to wait on the requested resources`)
+    debug('Failed to wait on the requested resources')
     debug(err)
     throw Error('Failed to wait on the requested resources')
   }
