@@ -35,7 +35,7 @@
     "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
     "package:watch": "yarn package -- --watch",
     "test": "jest",
-    "fake-servers": "concurrently \"serve -s __tests__/build/app1 -p 4001 --debug\" \"serve -s __tests__/build/app2 -p 4002 --debug\" \"serve -s __tests__/build/app3 -p 4003 --debug\"",
+    "fake-servers": "concurrently \"serve -s src/__tests__/build/app1 -p 4001 --debug\" \"serve -s src/__tests__/build/app2 -p 4002 --debug\" \"serve -s src/__tests__/build/app3 -p 4003 --debug\"",
     "all": "yarn format:write && yarn lint && yarn test && yarn coverage && yarn package"
   },
   "license": "MIT",
