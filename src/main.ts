@@ -66,7 +66,7 @@ const getInputBool = (name: string, defaultValue = false): boolean => {
  * The main function for the testing action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-async function runTest (): Promise<Array<number | undefined> | undefined> {
+async function runTest(): Promise<Array<number | undefined> | undefined> {
   let userCommand
   const shouldRun = getInputBool('command-if', true)
 
@@ -104,7 +104,7 @@ async function runTest (): Promise<Array<number | undefined> | undefined> {
 }
 
 const startServersMaybe = async (): Promise<
-Array<number | undefined> | undefined
+  Array<number | undefined> | undefined
 > => {
   let userStartCommand
   const shouldStart = getInputBool('start-if', true)
@@ -188,7 +188,7 @@ const waitOnMaybe = async (): Promise<number | void> => {
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-export async function run (): Promise<void> {
+export async function run(): Promise<void> {
   try {
     await startServersMaybe()
     await waitOnMaybe()

@@ -552,8 +552,8 @@ class OidcClient {
             const res = yield httpclient
                 .getJson(id_token_url)
                 .catch(error => {
-                throw new Error(`Failed to get ID Token. \n
-        Error Code : ${error.statusCode}\n
+                throw new Error(`Failed to get ID Token. \n 
+        Error Code : ${error.statusCode}\n 
         Error Message: ${error.message}`);
             });
             const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
@@ -58073,7 +58073,7 @@ function buildURL(url, params, options) {
   if (!params) {
     return url;
   }
-
+  
   const _encode = options && options.encode || encode;
 
   const serializeFn = options && options.serialize;
@@ -59425,7 +59425,7 @@ class ZlibHeaderTransformStream extends stream__default["default"].Transform {
       if (chunk[0] !== 120) { // Hex: 78
         const header = Buffer.alloc(2);
         header[0] = 120; // Hex: 78
-        header[1] = 156; // Hex: 9C
+        header[1] = 156; // Hex: 9C 
         this.push(header, encoding);
       }
     }
@@ -61653,7 +61653,7 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /************************************************************************/
 /******/ // The module cache
 /******/ var __webpack_module_cache__ = {};
-/******/
+/******/ 
 /******/ // The require function
 /******/ function __nccwpck_require__(moduleId) {
 /******/ 	// Check if module is in cache
@@ -61667,7 +61667,7 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 		loaded: false,
 /******/ 		exports: {}
 /******/ 	};
-/******/
+/******/ 
 /******/ 	// Execute the module function
 /******/ 	var threw = true;
 /******/ 	try {
@@ -61676,14 +61676,14 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 	} finally {
 /******/ 		if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 	}
-/******/
+/******/ 
 /******/ 	// Flag the module as loaded
 /******/ 	module.loaded = true;
-/******/
+/******/ 
 /******/ 	// Return the exports of the module
 /******/ 	return module.exports;
 /******/ }
-/******/
+/******/ 
 /************************************************************************/
 /******/ /* webpack/runtime/compat get default export */
 /******/ (() => {
@@ -61696,7 +61696,7 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 		return getter;
 /******/ 	};
 /******/ })();
-/******/
+/******/ 
 /******/ /* webpack/runtime/define property getters */
 /******/ (() => {
 /******/ 	// define getter functions for harmony exports
@@ -61708,12 +61708,12 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 		}
 /******/ 	};
 /******/ })();
-/******/
+/******/ 
 /******/ /* webpack/runtime/hasOwnProperty shorthand */
 /******/ (() => {
 /******/ 	__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ })();
-/******/
+/******/ 
 /******/ /* webpack/runtime/node module decorator */
 /******/ (() => {
 /******/ 	__nccwpck_require__.nmd = (module) => {
@@ -61722,11 +61722,11 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 		return module;
 /******/ 	};
 /******/ })();
-/******/
+/******/ 
 /******/ /* webpack/runtime/compat */
-/******/
+/******/ 
 /******/ if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = new URL('.', import.meta.url).pathname.slice(import.meta.url.match(/^file:\/\/\/\w:/) ? 1 : 0, -1) + "/";
-/******/
+/******/ 
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
@@ -61780,7 +61780,7 @@ expectedStatus = 200, isInsecure = true, isLogging = true) => {
         // once here, all resources are available
     }
     catch (err) {
-        debug(`Failed to wait on the requested resources`);
+        debug('Failed to wait on the requested resources');
         debug(err);
         throw Error('Failed to wait on the requested resources');
     }
@@ -61794,8 +61794,8 @@ expectedStatus = 200, isInsecure = true, isLogging = true) => {
 
 
 const main_debug = src_default()('background_run_and_test');
-//const homeDirectory = os.homedir()
-//const platformAndArch = `${process.platform}-${process.arch}`
+// const homeDirectory = os.homedir()
+// const platformAndArch = `${process.platform}-${process.arch}`
 const startWorkingDirectory = process.cwd();
 // seems the working directory should be absolute to work correctly
 // https://github.com/cypress-io/github-action/issues/211
@@ -61854,7 +61854,7 @@ async function runTest() {
         return;
     }
     if (!shouldRun) {
-        console.log(`skip running the commands`);
+        console.log('skip running the commands');
         return;
     }
     // allow commands to be separated using commas or newlines
@@ -61882,7 +61882,7 @@ const startServersMaybe = async () => {
         return;
     }
     if (!shouldStart) {
-        console.log(`skip running the start commands`);
+        console.log('skip running the start commands');
         return;
     }
     // allow commands to be separated using commas or newlines
@@ -61892,7 +61892,7 @@ const startServersMaybe = async () => {
         .filter(Boolean);
     main_debug(`Separated ${separateStartCommands.length} start commands ${separateStartCommands.join(', ')}`);
     return await Promise.all(separateStartCommands.map(async (startCommand) => {
-        return await execCommand(startCommand, false, `start server`);
+        return await execCommand(startCommand, false, 'start server');
     }));
 };
 /**
@@ -61908,24 +61908,24 @@ const waitOnUrl = async (waitOn, waitOnTimeout = 60) => {
         .map((s) => s.trim())
         .filter(Boolean);
     main_debug(`Waiting for urls ${waitUrls.join(', ')}`);
-    return ping(waitUrls, waitTimeoutMs);
+    return await ping(waitUrls, waitTimeoutMs);
 };
 const waitOnMaybe = async () => {
     const waitOn = core.getInput('wait-on');
     const shouldWait = getInputBool('wait-if', true);
     if (!waitOn || !shouldWait) {
         if (!shouldWait)
-            console.log(`skip waiting on the required resources`);
+            console.log('skip waiting on the required resources');
         return;
     }
     const waitOnTimeout = core.getInput('wait-on-timeout') || '60';
     const timeoutSeconds = parseFloat(waitOnTimeout);
     console.log(`will wait for ${timeoutSeconds} sec`);
     if (isUrl(waitOn)) {
-        return waitOnUrl(waitOn, timeoutSeconds);
+        return await waitOnUrl(waitOn, timeoutSeconds);
     }
     console.log(`waiting using command ${waitOn}`);
-    return execCommand(waitOn, true);
+    return await execCommand(waitOn, true);
 };
 /**
  * The main function for the action.
