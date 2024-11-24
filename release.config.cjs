@@ -11,8 +11,8 @@ module.exports = {
       '@semantic-release/git',
       {
         assets: ['dist/*.js', 'dist/*.js.map'],
-        message: ({ nextRelease }) =>
-          `chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}`
+        successComment: ({ nextRelease }) =>
+          `:tada: This issue has been resolved in version ${nextRelease.version} :tada:\n\nThe release is available on [GitHub release](<github_release_url>)`
       }
     ],
     '@semantic-release/github'
