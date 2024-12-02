@@ -18,7 +18,7 @@ export const ping = async (
       ? (status: number) => status === expectedStatus
       : (status: number) => (status >= 200 && status < 300) || status === 304
 
-  const waitOpts = {
+  const waitOpts: waitOn.WaitOnOptions = {
     resources: Array.isArray(resource) ? resource : [resource],
     interval: 1000,
     window: 1000,

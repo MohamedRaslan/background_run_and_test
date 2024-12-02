@@ -1,6 +1,5 @@
 import eslint from '@eslint/js'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
+import tseslint from 'typescript-eslint'
 import github from 'eslint-plugin-github'
 import jest from 'eslint-plugin-jest'
 import globals from 'globals'
@@ -11,11 +10,9 @@ export default [
   // Common Settings for All Files
   {
     plugins: {
-      '@typescript-eslint': typescriptEslint,
       jest
     },
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
         ecmaVersion: 2023,
         sourceType: 'module',
@@ -59,7 +56,7 @@ export default [
   {
     files: ['*.ts'],
     rules: {
-      ...typescriptEslint.configs.recommended.rules,
+      ...tseslint.configs.recommended.rules,
       '@typescript-eslint/array-type': [
         'error',
         {
