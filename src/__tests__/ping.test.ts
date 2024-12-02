@@ -6,6 +6,15 @@ import { ping } from '../ping'
 import { expect } from '@jest/globals'
 
 describe('Ping urls', () => {
+  beforeEach(() => {
+    jest.resetModules()
+    jest.clearAllMocks()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+    jest.restoreAllMocks()
+  })
+
   it('Try to ping available urls', async () => {
     const urls = [
       'https://github.com/MohamedRaslan/background_run_and_test',

@@ -14,7 +14,12 @@ jest.mock('@actions/exec')
 
 describe('Test core functions', () => {
   beforeEach(() => {
+    jest.resetModules()
     jest.clearAllMocks()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+    jest.restoreAllMocks()
   })
 
   describe('Test the "execCommand" functionality', () => {
@@ -65,9 +70,7 @@ describe('Test core functions', () => {
       expect(result).toBe(0)
     })
     it('handles execution failures', async () => {
-      const mockExec = jest
-        .spyOn(exec, 'exec')
-        .mockRejectedValue(new Error('Command failed'))
+      jest.spyOn(exec, 'exec').mockRejectedValue(new Error('Command failed'))
       await expect(main.execCommand('invalid-command', true)).rejects.toThrow(
         'Command failed'
       )
