@@ -7,15 +7,13 @@ import Debug from 'debug'
 
 const debug = Debug('background_run_and_test')
 
-// const homeDirectory = os.homedir()
-// const platformAndArch = `${process.platform}-${process.arch}`
-
 const startWorkingDirectory = process.cwd()
 // seems the working directory should be absolute to work correctly
 // https://github.com/cypress-io/github-action/issues/211
-const workingDirectory = core.getInput('working-directory')
-  ? path.resolve(core.getInput('working-directory'))
-  : startWorkingDirectory
+const workingDirectory = () =>
+  core.getInput('working-directory')
+    ? path.resolve(core.getInput('working-directory'))
+    : startWorkingDirectory
 
 const isWindows = (): boolean => os.platform() === 'win32'
 const isUrl = (s: string): boolean => /^https?:\/\//.test(s)
@@ -25,12 +23,12 @@ debug(`working directory ${workingDirectory}`)
  * Parses input command, finds the tool and
  * the runs the command.
  */
-const execCommand = (
+export const execCommand = (
   fullCommand: string,
   waitToFinish = true,
   label = 'executing'
 ): Promise<number> | undefined => {
-  const cwd = workingDirectory
+  const cwd = workingDirectory()
 
   console.log(`${label} command "${fullCommand}"`)
   console.log(`current working directory "${cwd}"`)
@@ -50,7 +48,7 @@ const execCommand = (
  * @returns {boolean} converted input argument or default value
  */
 
-const getInputBool = (name: string, defaultValue = false): boolean => {
+export const getInputBool = (name: string, defaultValue = false): boolean => {
   const param = core.getInput(name)
   if (param === 'true' || param === '1') {
     return true
@@ -66,7 +64,9 @@ const getInputBool = (name: string, defaultValue = false): boolean => {
  * The main function for the testing action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-async function runTest(): Promise<Array<number | undefined> | undefined> {
+export async function runTest(): Promise<
+  Array<number | undefined> | undefined
+> {
   let userCommand
   const shouldRun = getInputBool('command-if', true)
 
@@ -103,7 +103,7 @@ async function runTest(): Promise<Array<number | undefined> | undefined> {
   )
 }
 
-const startServersMaybe = async (): Promise<
+export const startServersMaybe = async (): Promise<
   Array<number | undefined> | undefined
 > => {
   let userStartCommand
@@ -149,7 +149,10 @@ const startServersMaybe = async (): Promise<
  * @param {string} waitOn A single URL or comma-separated URLs
  * @param {Number?} waitOnTimeout in seconds
  */
-const waitOnUrl = async (waitOn: string, waitOnTimeout = 60): Promise<void> => {
+export const waitOnUrl = async (
+  waitOn: string,
+  waitOnTimeout = 60
+): Promise<void> => {
   console.log(`waiting on "${waitOn}" with timeout of ${waitOnTimeout} seconds`)
 
   const waitTimeoutMs = waitOnTimeout * 1000
@@ -163,7 +166,7 @@ const waitOnUrl = async (waitOn: string, waitOnTimeout = 60): Promise<void> => {
   return await ping(waitUrls, waitTimeoutMs)
 }
 
-const waitOnMaybe = async (): Promise<number | void> => {
+export const waitOnMaybe = async (): Promise<number | void> => {
   const waitOn = core.getInput('wait-on')
   const shouldWait = getInputBool('wait-if', true)
   if (!waitOn || !shouldWait) {
