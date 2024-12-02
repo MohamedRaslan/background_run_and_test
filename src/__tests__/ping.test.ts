@@ -9,17 +9,26 @@ describe('Ping urls', () => {
   it('Try to ping available urls', async () => {
     const urls = [
       'https://github.com/MohamedRaslan/background_run_and_test',
-      'https://github.com/MohamedRaslan'
+      'https-get://github.com/MohamedRaslan',
+      'tcp:github.com:443'
     ]
     const timeout = 2000 // 2sec
 
     await expect(ping(urls, timeout)).resolves.not.toThrow()
   })
+
   it('Try to ping unavailable urls', async () => {
     const urls = [
       'http://localhost:4001',
       'http://localhost:4002',
-      'http://localhost:4003'
+      'http://localhost:4003',
+      'file1',
+      'http://foo.com:8000/bar',
+      'https://my.com/cat',
+      'http-get://foo.com:8000/bar',
+      'https-get://my.com/cat',
+      'tcp:foo.com:8000',
+      'socket:/my/sock'
     ]
     const timeout = 1000 // 1sec
 

@@ -16,7 +16,6 @@ const workingDirectory = () =>
     : startWorkingDirectory
 
 const isWindows = (): boolean => os.platform() === 'win32'
-const isUrl = (s: string): boolean => /^https?:\/\//.test(s)
 
 debug(`working directory ${workingDirectory}`)
 /**
@@ -145,11 +144,11 @@ export const startServersMaybe = async (): Promise<
 }
 
 /**
- * Pings give URL(s) until the timeout expires.
- * @param {string} waitOn A single URL or comma-separated URLs
+ * Pings give RESOURCE(s) until the timeout expires.
+ * @param {string} waitOn A single RESOURCE or comma-separated RESOURCEs
  * @param {Number?} waitOnTimeout in seconds
  */
-export const waitOnUrl = async (
+export const waitOnResource = async (
   waitOn: string,
   waitOnTimeout = 60
 ): Promise<void> => {
@@ -157,13 +156,13 @@ export const waitOnUrl = async (
 
   const waitTimeoutMs = waitOnTimeout * 1000
 
-  const waitUrls = waitOn
+  const waitResources = waitOn
     .split(',')
     .map((s: string) => s.trim())
     .filter(Boolean)
-  debug(`Waiting for urls ${waitUrls.join(', ')}`)
+  debug(`Waiting for resources ${waitResources.join(', ')}`)
 
-  return await ping(waitUrls, waitTimeoutMs)
+  return await ping(waitResources, waitTimeoutMs)
 }
 
 export const waitOnMaybe = async (): Promise<number | void> => {
@@ -180,12 +179,7 @@ export const waitOnMaybe = async (): Promise<number | void> => {
 
   console.log(`will wait for ${timeoutSeconds} sec`)
 
-  if (isUrl(waitOn)) {
-    return await waitOnUrl(waitOn, timeoutSeconds)
-  }
-
-  console.log(`waiting using command ${waitOn}`)
-  return await execCommand(waitOn, true)
+  return await waitOnResource(waitOn, timeoutSeconds)
 }
 /**
  * The main function for the action.
