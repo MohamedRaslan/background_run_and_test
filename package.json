@@ -65,6 +65,14 @@
           "silent": false
         }
       ],
+      [
+        "jest-junit",
+        {
+          "suiteName": "background_run_and_test_regression",
+          "outputDirectory": "coverage/",
+          "classNameTemplate": "{filepath}"
+        }
+      ],
       "default",
       "summary"
     ],
@@ -103,6 +111,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.13.0",
     "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
     "make-coverage-badge": "^1.2.0",
     "prettier": "^3.4.1",
     "prettier-eslint": "^16.3.0",
