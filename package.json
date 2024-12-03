@@ -27,7 +27,7 @@
   },
   "scripts": {
     "bundle": "yarn format:write && yarn package",
-    "ci-test": "npx jest",
+    "ci-test": "npx jest --silent",
     "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
     "format:write": "npx prettier --write .",
     "format:check": "npx prettier --check .",

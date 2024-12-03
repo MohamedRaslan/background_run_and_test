@@ -26,7 +26,7 @@ export const execCommand = (
   fullCommand: string,
   waitToFinish = true,
   label = 'executing'
-): Promise<number> | undefined => {
+): Promise<number> | boolean => {
   const cwd = workingDirectory()
 
   console.log(`${label} command "${fullCommand}"`)
@@ -38,6 +38,7 @@ export const execCommand = (
 
     return executionCode
   }
+  return false
 }
 
 /**
@@ -63,9 +64,7 @@ export const getInputBool = (name: string, defaultValue = false): boolean => {
  * The main function for the testing action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-export async function runTest(): Promise<
-  Array<number | undefined> | undefined
-> {
+export async function runTest(): Promise<Array<number | boolean> | boolean> {
   let userCommand
   const shouldRun = getInputBool('command-if', true)
 
@@ -77,12 +76,12 @@ export async function runTest(): Promise<
   }
   if (!userCommand) {
     debug('No command found')
-    return
+    return false
   }
 
   if (!shouldRun) {
     console.log('skip running the commands')
-    return
+    return false
   }
   // allow commands to be separated using commas or newlines
   const separateCommands = userCommand
@@ -103,7 +102,7 @@ export async function runTest(): Promise<
 }
 
 export const startServersMaybe = async (): Promise<
-  Array<number | undefined> | undefined
+  Array<number | boolean> | boolean
 > => {
   let userStartCommand
   const shouldStart = getInputBool('start-if', true)
@@ -116,12 +115,12 @@ export const startServersMaybe = async (): Promise<
   }
   if (!userStartCommand) {
     debug('No start command found')
-    return
+    return false
   }
 
   if (!shouldStart) {
     console.log('skip running the start commands')
-    return
+    return false
   }
 
   // allow commands to be separated using commas or newlines

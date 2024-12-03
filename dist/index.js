@@ -61378,6 +61378,7 @@ const execCommand = (fullCommand, waitToFinish = true, label = 'executing') => {
         main_debug(`waiting for the command to finish? ${waitToFinish}`);
         return executionCode;
     }
+    return false;
 };
 /**
  * Grabs a boolean GitHub Action parameter input and casts it.
@@ -61411,11 +61412,11 @@ async function runTest() {
     }
     if (!userCommand) {
         main_debug('No command found');
-        return;
+        return false;
     }
     if (!shouldRun) {
         console.log('skip running the commands');
-        return;
+        return false;
     }
     // allow commands to be separated using commas or newlines
     const separateCommands = userCommand
@@ -61439,11 +61440,11 @@ const startServersMaybe = async () => {
     }
     if (!userStartCommand) {
         main_debug('No start command found');
-        return;
+        return false;
     }
     if (!shouldStart) {
         console.log('skip running the start commands');
-        return;
+        return false;
     }
     // allow commands to be separated using commas or newlines
     const separateStartCommands = userStartCommand

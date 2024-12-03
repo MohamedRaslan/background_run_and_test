@@ -10,9 +10,12 @@ describe('Ping urls', () => {
     jest.resetModules()
     jest.clearAllMocks()
   })
-  afterAll(() => {
-    jest.clearAllMocks()
-    jest.restoreAllMocks()
+  it('Try to ping available url', async () => {
+    const url = 'https://github.com/MohamedRaslan/background_run_and_test'
+
+    const timeout = 2000 // 2sec
+
+    await expect(ping(url, timeout)).resolves.not.toThrow()
   })
 
   it('Try to ping available urls', async () => {
@@ -21,9 +24,7 @@ describe('Ping urls', () => {
       'https-get://github.com/MohamedRaslan',
       'tcp:github.com:443'
     ]
-    const timeout = 2000 // 2sec
-
-    await expect(ping(urls, timeout)).resolves.not.toThrow()
+    await expect(ping(urls)).resolves.not.toThrow()
   })
 
   it('Try to ping unavailable urls', async () => {
