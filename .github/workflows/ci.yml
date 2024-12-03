@@ -52,21 +52,6 @@ jobs:
           path: |
             coverage/
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage/cobertura-coverage.xml
-          verbose: true # optional (default = false)
-
-      - name: Upload test results to Codecov
-        if: ${{ !cancelled() }}
-        uses: codecov/test-results-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage/junit.xml
-          verbose: true # optional (default = false)
-
   test-action:
     name: GitHub Actions Test
     runs-on: ubuntu-latest

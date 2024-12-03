@@ -12,7 +12,7 @@
 [![Check Transpiled JavaScript](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/check-dist.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/check-dist.yml)
 [![CodeQL](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/codeql-analysis.yml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
-[![codecov](https://codecov.io/gh/MohamedRaslan/background_run_and_test/graph/badge.svg?token=GQQL86QUJ6)](https://codecov.io/gh/MohamedRaslan/background_run_and_test)
+
 GitHub Action to run a commands (e.g. a test) while also running another
 commands (e.g. a server) in the background, And you could conditional wait for
 the background resources to be available the `wait-on` use the
