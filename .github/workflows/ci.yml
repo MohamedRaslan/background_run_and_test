@@ -44,6 +44,19 @@ jobs:
         id: yarn-ci-test
         run: yarn ci-test
 
+      - name: Publish the reports on GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit-coverage-report-${{ github.sha }}
+          retention-days: 3
+          path: |
+            coverage/
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
   test-action:
     name: GitHub Actions Test
     runs-on: ubuntu-latest
