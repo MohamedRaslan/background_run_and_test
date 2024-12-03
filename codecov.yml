@@ -2,9 +2,6 @@ codecov:
   require_ci_to_pass: true
 
 coverage:
-  target: auto
-  base: auto
-  threshold: 60%
   precision: 2
   round: down
   range: '60...75'
@@ -12,9 +9,15 @@ coverage:
     project:
       default:
         informational: true
+        target: auto
+        base: auto
+        threshold: 65%
     patch:
       default:
         informational: true
+        target: auto
+        base: auto
+        threshold: 70%
 
 github_checks:
   annotations: false
