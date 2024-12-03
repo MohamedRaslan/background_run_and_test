@@ -7,30 +7,27 @@ import Debug from 'debug'
 
 const debug = Debug('background_run_and_test')
 
-// const homeDirectory = os.homedir()
-// const platformAndArch = `${process.platform}-${process.arch}`
-
 const startWorkingDirectory = process.cwd()
 // seems the working directory should be absolute to work correctly
 // https://github.com/cypress-io/github-action/issues/211
-const workingDirectory = core.getInput('working-directory')
-  ? path.resolve(core.getInput('working-directory'))
-  : startWorkingDirectory
+const workingDirectory = () =>
+  core.getInput('working-directory')
+    ? path.resolve(core.getInput('working-directory'))
+    : startWorkingDirectory
 
 const isWindows = (): boolean => os.platform() === 'win32'
-const isUrl = (s: string): boolean => /^https?:\/\//.test(s)
 
 debug(`working directory ${workingDirectory}`)
 /**
  * Parses input command, finds the tool and
  * the runs the command.
  */
-const execCommand = (
+export const execCommand = (
   fullCommand: string,
   waitToFinish = true,
   label = 'executing'
-): Promise<number> | undefined => {
-  const cwd = workingDirectory
+): Promise<number> | boolean => {
+  const cwd = workingDirectory()
 
   console.log(`${label} command "${fullCommand}"`)
   console.log(`current working directory "${cwd}"`)
@@ -41,6 +38,7 @@ const execCommand = (
 
     return executionCode
   }
+  return false
 }
 
 /**
@@ -50,7 +48,7 @@ const execCommand = (
  * @returns {boolean} converted input argument or default value
  */
 
-const getInputBool = (name: string, defaultValue = false): boolean => {
+export const getInputBool = (name: string, defaultValue = false): boolean => {
   const param = core.getInput(name)
   if (param === 'true' || param === '1') {
     return true
@@ -66,7 +64,7 @@ const getInputBool = (name: string, defaultValue = false): boolean => {
  * The main function for the testing action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-async function runTest(): Promise<Array<number | undefined> | undefined> {
+export async function runTest(): Promise<Array<number | boolean> | boolean> {
   let userCommand
   const shouldRun = getInputBool('command-if', true)
 
@@ -78,12 +76,12 @@ async function runTest(): Promise<Array<number | undefined> | undefined> {
   }
   if (!userCommand) {
     debug('No command found')
-    return
+    return false
   }
 
   if (!shouldRun) {
     console.log('skip running the commands')
-    return
+    return false
   }
   // allow commands to be separated using commas or newlines
   const separateCommands = userCommand
@@ -103,8 +101,8 @@ async function runTest(): Promise<Array<number | undefined> | undefined> {
   )
 }
 
-const startServersMaybe = async (): Promise<
-  Array<number | undefined> | undefined
+export const startServersMaybe = async (): Promise<
+  Array<number | boolean> | boolean
 > => {
   let userStartCommand
   const shouldStart = getInputBool('start-if', true)
@@ -117,12 +115,12 @@ const startServersMaybe = async (): Promise<
   }
   if (!userStartCommand) {
     debug('No start command found')
-    return
+    return false
   }
 
   if (!shouldStart) {
     console.log('skip running the start commands')
-    return
+    return false
   }
 
   // allow commands to be separated using commas or newlines
@@ -145,25 +143,28 @@ const startServersMaybe = async (): Promise<
 }
 
 /**
- * Pings give URL(s) until the timeout expires.
- * @param {string} waitOn A single URL or comma-separated URLs
+ * Pings give RESOURCE(s) until the timeout expires.
+ * @param {string} waitOn A single RESOURCE or comma-separated RESOURCEs
  * @param {Number?} waitOnTimeout in seconds
  */
-const waitOnUrl = async (waitOn: string, waitOnTimeout = 60): Promise<void> => {
+export const waitOnResource = async (
+  waitOn: string,
+  waitOnTimeout = 60
+): Promise<void> => {
   console.log(`waiting on "${waitOn}" with timeout of ${waitOnTimeout} seconds`)
 
   const waitTimeoutMs = waitOnTimeout * 1000
 
-  const waitUrls = waitOn
+  const waitResources = waitOn
     .split(',')
     .map((s: string) => s.trim())
     .filter(Boolean)
-  debug(`Waiting for urls ${waitUrls.join(', ')}`)
+  debug(`Waiting for resources ${waitResources.join(', ')}`)
 
-  return await ping(waitUrls, waitTimeoutMs)
+  return await ping(waitResources, waitTimeoutMs)
 }
 
-const waitOnMaybe = async (): Promise<number | void> => {
+export const waitOnMaybe = async (): Promise<number | void> => {
   const waitOn = core.getInput('wait-on')
   const shouldWait = getInputBool('wait-if', true)
   if (!waitOn || !shouldWait) {
@@ -177,12 +178,7 @@ const waitOnMaybe = async (): Promise<number | void> => {
 
   console.log(`will wait for ${timeoutSeconds} sec`)
 
-  if (isUrl(waitOn)) {
-    return await waitOnUrl(waitOn, timeoutSeconds)
-  }
-
-  console.log(`waiting using command ${waitOn}`)
-  return await execCommand(waitOn, true)
+  return await waitOnResource(waitOn, timeoutSeconds)
 }
 /**
  * The main function for the action.

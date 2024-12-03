@@ -44,6 +44,19 @@ jobs:
         id: yarn-ci-test
         run: yarn ci-test
 
+      - name: Publish the reports on GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-coverage-report-${{ github.sha }}
+          retention-days: 3
+          path: |
+            coverage/
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
   test-action:
     name: GitHub Actions Test
     runs-on: ubuntu-latest
@@ -69,6 +82,6 @@ jobs:
         uses: ./
         with:
           start: yarn fake-servers
-          wait-on: 'http://localhost:4001,http://localhost:4002,http://localhost:4003'
+          wait-on: 'http://localhost:4001,http://localhost:4002,tcp:localhost:4003'
           wait-on-timeout: 10
           command: yarn lint
