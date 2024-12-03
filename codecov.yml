@@ -22,6 +22,13 @@ coverage:
 github_checks:
   annotations: false
 
+ignore:
+  - .devcontainer/
+  - .github/
+  - badges/
+  - dist/
+  - script/
+
 comment:
   layout: ' diff, flags, files'
   behavior: default
