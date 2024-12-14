@@ -12,32 +12,39 @@
 [![CodeQL](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/codeql-analysis.yml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
-----
-A GitHub Action that allows you to execute testing commands (e.g., `npm test`) while concurrently running background tasks (like starting a server). With support for conditional waiting on resources, it simplifies workflows with background jobs/works and integrate with the **[wait-on](https://www.npmjs.com/package/wait-on)** library for waiting on resources.
+A GitHub Action that allows you to execute testing commands (e.g., `npm test`)
+while concurrently running background tasks (like starting a server). With
+support for conditional waiting on resources, it simplifies workflows with
+background jobs/works and integrate with the
+**[wait-on](https://www.npmjs.com/package/wait-on)** library for waiting on
+resources.
 
 > :information_source: **Notice**
 >
->  The code was derived from the
->   [cypress-io/github-action](https://github.com/cypress-io/github-action), but
->   with a few additions and enhancements for more general usage.
-----
+> The code was derived from the
+> [cypress-io/github-action](https://github.com/cypress-io/github-action), but
+> with a few additions and enhancements for more general usage.
 
+---
 
 ## :star: Features
 
-- **Background Tasks:** Run a server or other background processes with `start` commands.
-- **Cross-Platform Support:** Tailored commands for Windows (`start-windows`, `command-windows`).
-- **Resource Wait:** Wait for URLs, ports, files, or sockets to become available before testing.
-- **Conditional Logic:** Use `wait-if`, `start-if`, and `command-if` for advanced flow control.
-- **Custom Working Directory:** Set a specific `working-directory` for running commands in a defined path.
+- **Background Tasks:** Run a server or other background processes with `start`
+  commands.
+- **Cross-Platform Support:** Tailored commands for Windows (`start-windows`,
+  `command-windows`).
+- **Resource Wait:** Wait for URLs, ports, files, or sockets to become available
+  before testing.
+- **Conditional Logic:** Use `wait-if`, `start-if`, and `command-if` for
+  advanced flow control.
+- **Custom Working Directory:** Set a specific `working-directory` for running
+  commands in a defined path.
 - **Multi-Command Support:** Run multiple `start` or `command` entries at once.
-
-
 
 ## :clipboard: Table of Options
 
 | **Option**          | **Description**                                   |
-|---------------------|---------------------------------------------------|
+| ------------------- | ------------------------------------------------- |
 | `start`             | Background command (Linux/Mac).                   |
 | `start-windows`     | Background command (Windows).                     |
 | `command`           | Main testing command (Linux/Mac).                 |
@@ -70,6 +77,7 @@ jobs:
           start: yarn run start:apps:server:apps:server
           command: yarn run test:apps
 ```
+
 ## :rocket: Usage Examples
 
 ### Multiple commands command
@@ -88,7 +96,8 @@ jobs:
       - name: Run E2E Tests
         uses: MohamedRaslan/background_run_and_test@v1
         with:
-          start: | #Or you can do it in a comma separated style like so "yarn run app:api, yarn run "app:web
+          start:
+            | #Or you can do it in a comma separated style like so "yarn run app:api, yarn run "app:web
             yarn run app:api
             yarn run app:web
           command: yarn run generate:docs, yarn run test:apps
@@ -264,10 +273,12 @@ jobs:
 
 ## Additnoal resources you can wait-on them
 
-The action integrate with the [wait-on](https://www.npmjs.com/package/wait-on) package to control the flow. You can pass any number of resources in the `wait-on` configuration parameter separated by commas or newlines.
+The action integrate with the [wait-on](https://www.npmjs.com/package/wait-on)
+package to control the flow. You can pass any number of resources in the
+`wait-on` configuration parameter separated by commas or newlines.
 
-Exaples can be found here [wait-on cli usage](https://github.com/jeffbski/wait-on?tab=readme-ov-file#cli-usage)
-
+Exaples can be found here
+[wait-on cli usage](https://github.com/jeffbski/wait-on?tab=readme-ov-file#cli-usage)
 
 ## :see_no_evil: Issues
 

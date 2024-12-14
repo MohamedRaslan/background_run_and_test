@@ -61465,7 +61465,7 @@ const waitOnResource = async (waitOn, waitOnTimeout = 60) => {
     console.log(`waiting on "${waitOn}" with timeout of ${waitOnTimeout} seconds`);
     const waitTimeoutMs = waitOnTimeout * 1000;
     const waitResources = waitOn
-        .split(',')
+        .split(/,|\n/)
         .map((s) => s.trim())
         .filter(Boolean);
     main_debug(`Waiting for resources ${waitResources.join(', ')}`);
