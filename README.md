@@ -74,7 +74,7 @@ jobs:
       - name: Run E2E Tests
         uses: MohamedRaslan/background_run_and_test@v1
         with:
-          start: yarn run start:apps:server:apps:server
+          start: yarn run start:apps:server
           command: yarn run test:apps
 ```
 
@@ -121,7 +121,7 @@ jobs:
       - name: Run E2E Tests
         uses: MohamedRaslan/background_run_and_test@v1
         with:
-          start: yarn run start:apps:server:apps:server
+          start: yarn run start:apps:server
           start-windows: yarn run start:apps:server:windows
           command: yarn run test:apps
           command-windows: yarn run tests:apps:windows
@@ -145,7 +145,7 @@ jobs:
         uses: MohamedRaslan/background_run_and_test@v1
         with:
           working-directory: ./packages/example
-          start: yarn run start:apps:server:apps:server
+          start: yarn run start:apps:server
 ```
 
 ### Wait for server
