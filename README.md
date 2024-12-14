@@ -5,7 +5,6 @@
 [![GitHub issues](https://img.shields.io/github/issues/MohamedRaslan/background_run_and_test)](https://github.com/MohamedRaslan/background_run_and_test/issues)
 [![GitHub Release Date](https://img.shields.io/github/release-date/mohamedraslan/background_run_and_test)](https://github.com/MohamedRaslan/background_run_and_test/releases)
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mohamedraslan/background_run_and_test)](https://github.com/MohamedRaslan/background_run_and_test)
-
 [![Lint Codebase](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/linter.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/linter.yml)
 [![Dependabot Updates](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/dependabot/dependabot-updates)
 [![Continuous Integration](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/ci.yml)
@@ -13,31 +12,44 @@
 [![CodeQL](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/codeql-analysis.yml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
-GitHub Action to run a testing commands (like npm test) while also running other commands
-(e.g. a server) in the background, And you could conditional wait for
-the background resources to be available the `wait-on` use the
-**[wait-on](https://www.yarnjs.com/package/wait-on)** Yarn package under the
-hood so most of the `waiton` functionality should be accepted.
+----
+A GitHub Action that allows you to execute testing commands (e.g., `npm test`) while concurrently running background tasks (like starting a server). With support for conditional waiting on resources, it simplifies workflows with background jobs/works and integrate with the **[wait-on](https://www.npmjs.com/package/wait-on)** library for waiting on resources.
 
 > :information_source: **Notice**
 >
 >  The code was derived from the
 >   [cypress-io/github-action](https://github.com/cypress-io/github-action), but
 >   with a few additions and enhancements for more general usage.
+----
 
-## :wink: Features
 
-**The action lets you do the following:**
+## :star: Features
 
-- Run a `command` or `command-windows` in the background to open a server or do
-  some background tasks while running your tests
-- Optionally wait for resources before running your test, your resources could
-  be (files, ports, sockets, or http(s) resources to become available (or not
-  available using reverse mode)) as it use the
-  **[wait-on](https://www.yarnjs.com/package/wait-on)** Yarn package under the
-  hood
-- Conditional wait using the `wait-if` option
-- You can run multiple commands at once
+- **Background Tasks:** Run a server or other background processes with `start` commands.
+- **Cross-Platform Support:** Tailored commands for Windows (`start-windows`, `command-windows`).
+- **Resource Wait:** Wait for URLs, ports, files, or sockets to become available before testing.
+- **Conditional Logic:** Use `wait-if`, `start-if`, and `command-if` for advanced flow control.
+- **Custom Working Directory:** Set a specific `working-directory` for running commands in a defined path.
+- **Multi-Command Support:** Run multiple `start` or `command` entries at once.
+
+
+
+## :clipboard: Table of Options
+
+| **Option**          | **Description**                                   |
+|---------------------|---------------------------------------------------|
+| `start`             | Background command (Linux/Mac).                   |
+| `start-windows`     | Background command (Windows).                     |
+| `command`           | Main testing command (Linux/Mac).                 |
+| `command-windows`   | Main testing command (Windows).                   |
+| `wait-on`           | Resources to wait for (URLs, files, ports, etc.). |
+| `wait-on-timeout`   | Timeout in seconds for `wait-on` (default: 60).   |
+| `working-directory` | Directory to execute commands in.                 |
+| `wait-if`           | Conditional logic for resource waiting.           |
+| `start-if`          | Conditional logic for starting background tasks.  |
+| `command-if`        | Conditional logic for executing main commands.    |
+
+---
 
 ### Usage
 
@@ -58,6 +70,7 @@ jobs:
           start: yarn run start:apps:server:apps:server
           command: yarn run test:apps
 ```
+## :rocket: Usage Examples
 
 ### Multiple commands command
 
@@ -108,7 +121,7 @@ jobs:
 ### Current working directory
 
 If you want to set a specific directory where your commands are run, you can
-specify the path via the `cwd` option
+specify the path via the `working-directory` option
 
 ```yaml
 name: Run Tests
@@ -122,7 +135,7 @@ jobs:
       - name: Run E2E Tests
         uses: MohamedRaslan/background_run_and_test@v1
         with:
-          cwd: ./packages/example
+          working-directory: ./packages/example
           start: yarn run start:apps:server:apps:server
 ```
 
@@ -249,9 +262,9 @@ jobs:
             steps.lint.outcome == 'failure' }}
 ```
 
-### Additnoal resources you can wait-on them
+## Additnoal resources you can wait-on them
 
-The action leverages the handy [wait-on](https://www.npmjs.com/package/wait-on) package to control flow. You can pass any number of resources in the `wait-on` configuration parameter separated by commas or newlines.
+The action integrate with the [wait-on](https://www.npmjs.com/package/wait-on) package to control the flow. You can pass any number of resources in the `wait-on` configuration parameter separated by commas or newlines.
 
 Exaples can be found here [wait-on cli usage](https://github.com/jeffbski/wait-on?tab=readme-ov-file#cli-usage)
 
@@ -271,7 +284,7 @@ Contributions are very welcome :heart:.
 - **[wait-on :heart_eyes:](https://github.com/jeffbski/wait-on)** by
   **[Jeff Barczewski](https://github.com/jeffbski)**
 - **[Cypress-io/GitHub Action :heart_eyes:](https://github.com/cypress-io/github-action)**
-- **[Background-Server-Action :heart_eyes:](https://github.com/MohamedRaslan/background_run_and_test)**
+- **[Background-Server-Action :heart_eyes:](https://github.com/BerniWittmann/background-server-action)**
   by **[Bernhard Wittmann](https://github.com/BerniWittmann)**
 - **[GitHub Docs - Createing Actions](https://docs.github.com/en/actions/creating-actions)**
 - **[Actions/Typescript-Action](actions/typescript-action)**
