@@ -156,7 +156,7 @@ export const waitOnResource = async (
   const waitTimeoutMs = waitOnTimeout * 1000
 
   const waitResources = waitOn
-    .split(',')
+    .split(/,|\n/)
     .map((s: string) => s.trim())
     .filter(Boolean)
   debug(`Waiting for resources ${waitResources.join(', ')}`)

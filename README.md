@@ -13,23 +13,21 @@
 [![CodeQL](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MohamedRaslan/background_run_and_test/actions/workflows/codeql-analysis.yml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
-GitHub Action to run a commands (e.g. a test) while also running another
-commands (e.g. a server) in the background, And you could conditional wait for
+GitHub Action to run a testing commands (like npm test) while also running other commands
+(e.g. a server) in the background, And you could conditional wait for
 the background resources to be available the `wait-on` use the
 **[wait-on](https://www.yarnjs.com/package/wait-on)** Yarn package under the
 hood so most of the `waiton` functionality should be accepted.
 
 > :information_source: **Notice**
 >
-> - The code was derived from the
+>  The code was derived from the
 >   [cypress-io/github-action](https://github.com/cypress-io/github-action), but
 >   with a few additions and enhancements for more general usage.
-> - **Intial vesion (v1.0.0)** not tested very well, but the following versions
->   should be more tested and muture.
 
 ## :wink: Features
 
-**The action lets you dow the following:**
+**The action lets you do the following:**
 
 - Run a `command` or `command-windows` in the background to open a server or do
   some background tasks while running your tests
@@ -77,7 +75,9 @@ jobs:
       - name: Run E2E Tests
         uses: MohamedRaslan/background_run_and_test@v1
         with:
-          start: yarn run app:api, yarn run app:web
+          start: | #Or you can do it in a comma separated style like so "yarn run app:api, yarn run "app:web
+            yarn run app:api
+            yarn run app:web
           command: yarn run generate:docs, yarn run test:apps
 ```
 
@@ -167,11 +167,13 @@ You can wait for multiple URLs to respond by separating URLs with a comma
 - uses: MohamedRaslan/background_run_and_test@v1
     with:
       start: yarn run start:apps:server
-      wait-on: 'http://localhost:8080, http://localhost:4000'
+      wait-on: | #Or you can do it in a comma separated style like so 'http://localhost:8080, http://localhost:4000'
+        http://localhost:8080
+        http://localhost:4000
       command: yarn run test:apps
 ```
 
-Wait use **[wait-on](https://www.yarnjs.com/package/wait-on)** and be defualt it
+Wait use **[wait-on](https://www.yarnjs.com/package/wait-on)** and by defualt it
 wait for a HEAD response st, you can make it wait for GET response instead as
 follow
 
@@ -246,6 +248,13 @@ jobs:
             contains( github.base_ref , 'local' ) || ${{ failure() &&
             steps.lint.outcome == 'failure' }}
 ```
+
+### Additnoal resources you can wait-on them
+
+The action leverages the handy [wait-on](https://www.npmjs.com/package/wait-on) package to control flow. You can pass any number of resources in the `wait-on` configuration parameter separated by commas or newlines.
+
+Exaples can be found here [wait-on cli usage](https://github.com/jeffbski/wait-on?tab=readme-ov-file#cli-usage)
+
 
 ## :see_no_evil: Issues
 
