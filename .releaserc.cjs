@@ -21,7 +21,7 @@ module.exports = {
           '🚨 Automated release failed for ${nextRelease.version} release',
         labels: ['auto-release-fail'],
         releasedLabels: [
-          'released<%= nextRelease.channel ? ` on @${nextRelease.channel}` : " on production" %>'
+          'released<%= nextRelease.channel ? ` on @${nextRelease.channel}` : " on @production" %>'
         ],
         assets: [
           { path: './build-distro.zip' } // Uploads the dist folder
