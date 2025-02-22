@@ -35,6 +35,7 @@ jobs:
 
   sync-branches:
     name: 🔉 Syncing branches
+    if: contains( github.ref_name , 'main' )
     runs-on: ubuntu-latest
     needs: release
     timeout-minutes: 5
