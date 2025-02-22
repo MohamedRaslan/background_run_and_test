@@ -28,6 +28,9 @@ jobs:
 
       - run: yarn all
 
+      - name: Zip artifact for relase notes
+        run: cd ./dist/ && zip ../build-distro.zip . -r
+
       - name: Run Semantic Release
         run: npx semantic-release
         env:
@@ -35,6 +38,7 @@ jobs:
 
   sync-branches:
     name: 🔉 Syncing branches
+    if: contains( github.ref_name , 'main' )
     runs-on: ubuntu-latest
     needs: release
     timeout-minutes: 5
