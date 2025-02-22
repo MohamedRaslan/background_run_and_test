@@ -22,6 +22,9 @@ module.exports = {
         labels: ['auto-release-fail'],
         releasedLabels: [
           'released<%= nextRelease.channel ? ` on @${nextRelease.channel}` : " on production" %>'
+        ],
+        assets: [
+          { path: 'dist/**', label: 'Build Distro' } // Uploads the dist folder
         ]
       }
     ]
