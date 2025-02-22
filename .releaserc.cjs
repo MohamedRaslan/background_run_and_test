@@ -24,7 +24,7 @@ module.exports = {
           'released<%= nextRelease.channel ? ` on @${nextRelease.channel}` : " on production" %>'
         ],
         assets: [
-          { path: 'dist/**', label: 'Build Distro' } // Uploads the dist folder
+          { path: './build-distro.zip' } // Uploads the dist folder
         ]
       }
     ]
