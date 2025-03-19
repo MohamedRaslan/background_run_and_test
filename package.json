@@ -91,7 +91,7 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/exec": "^1.1.1",
-    "wait-on": "^8.0.2"
+    "wait-on": "^8.0.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
@@ -106,7 +106,7 @@
     "@vercel/ncc": "^0.38.3",
     "concurrently": "^9.1.2",
     "eslint": "^9.22.0",
-    "eslint-plugin-github": "^5.1.8",
+    "eslint-plugin-github": "^6.0.0",
     "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-jsonc": "^2.19.1",
     "eslint-plugin-prettier": "^5.2.3",
@@ -121,6 +121,6 @@
     "serve": "^14.2.4",
     "ts-jest": "^29.2.6",
     "typescript": "^5.8.2",
-    "typescript-eslint": "^8.26.0"
+    "typescript-eslint": "^8.26.1"
   }
 }
