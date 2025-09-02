@@ -62455,7 +62455,16 @@ var src_default = /*#__PURE__*/__nccwpck_require__.n(src);
 // EXTERNAL MODULE: ./node_modules/wait-on/lib/wait-on.js
 var wait_on = __nccwpck_require__(1503);
 var wait_on_default = /*#__PURE__*/__nccwpck_require__.n(wait_on);
+;// CONCATENATED MODULE: ./src/util.ts
+const actionConsoleLog = (
+//cyan = (36, 39);
+//cyanBright = (96, 39);
+//bgCyan = (46, 49);
+//bgCyanBright = (106, 49);
+message, open = 36, close = 39) => console.log(`\u001B[${open}m ${message} \u001B[${close}m`);
+
 ;// CONCATENATED MODULE: ./src/ping.ts
+
 
 
 const debug = src_default()('background_run_and_test');
@@ -62481,19 +62490,20 @@ expectedStatus = 200, isInsecure = true, isLogging = true) => {
     };
     // Usage with async await
     try {
-        debug('Start waiting on the requested resources');
+        actionConsoleLog('Start waiting on the requested resources');
         await wait_on_default()(waitOpts);
-        debug('Finished waiting on the requested resources successfully');
+        actionConsoleLog('Finished waiting on the requested resources successfully');
         // once here, all resources are available
     }
     catch (err) {
-        debug('Failed to wait on the requested resources');
+        actionConsoleLog('Failed to wait on the requested resources');
         debug(err);
         throw Error('Failed to wait on the requested resources');
     }
 };
 
 ;// CONCATENATED MODULE: ./src/main.ts
+
 
 
 
@@ -62508,18 +62518,18 @@ const workingDirectory = () => core.getInput('working-directory')
     ? external_node_path_default().resolve(core.getInput('working-directory'))
     : startWorkingDirectory;
 const isWindows = () => external_node_os_default().platform() === 'win32';
-main_debug(`working directory ${workingDirectory}`);
+actionConsoleLog(`Working directory ${workingDirectory}`);
 /**
  * Parses input command, finds the tool and
  * the runs the command.
  */
 const execCommand = (fullCommand, waitToFinish = true, label = 'executing') => {
     const cwd = workingDirectory();
-    console.log(`${label} command "${fullCommand}"`);
-    console.log(`current working directory "${cwd}"`);
+    actionConsoleLog(`${label} command "${fullCommand}"`);
+    actionConsoleLog(`Current working directory "${cwd}"`);
     const executionCode = exec.exec('bash', ['-c', fullCommand], { cwd });
     if (waitToFinish) {
-        main_debug(`waiting for the command to finish? ${waitToFinish}`);
+        actionConsoleLog(`Waiting for the command to finish? ${waitToFinish}`);
         return executionCode;
     }
     return false;
@@ -62555,11 +62565,11 @@ async function runTest() {
         userCommand = core.getInput('command');
     }
     if (!userCommand) {
-        main_debug('No command found');
+        actionConsoleLog('No command found');
         return false;
     }
     if (!shouldRun) {
-        console.log('skip running the commands');
+        actionConsoleLog('Skip running the commands');
         return false;
     }
     // allow commands to be separated using commas or newlines
@@ -62567,7 +62577,7 @@ async function runTest() {
         .split(/,|\n/)
         .map(s => s.trim())
         .filter(Boolean);
-    main_debug(`Separated ${separateCommands.length} main commands ${separateCommands.join(', ')}`);
+    actionConsoleLog(`Separated ${separateCommands.length} main commands ${separateCommands.join(', ')}`);
     return await Promise.all(separateCommands.map(async (command) => {
         return await execCommand(command, true);
     }));
@@ -62583,11 +62593,11 @@ const startServersMaybe = async () => {
         userStartCommand = core.getInput('start');
     }
     if (!userStartCommand) {
-        main_debug('No start command found');
+        actionConsoleLog('No start command found');
         return false;
     }
     if (!shouldStart) {
-        console.log('skip running the start commands');
+        actionConsoleLog('skip running the start commands');
         return false;
     }
     // allow commands to be separated using commas or newlines
@@ -62595,7 +62605,7 @@ const startServersMaybe = async () => {
         .split(/,|\n/)
         .map(s => s.trim())
         .filter(Boolean);
-    main_debug(`Separated ${separateStartCommands.length} start commands ${separateStartCommands.join(', ')}`);
+    actionConsoleLog(`Separated ${separateStartCommands.length} start commands ${separateStartCommands.join(', ')}`);
     return await Promise.all(separateStartCommands.map(async (startCommand) => {
         return await execCommand(startCommand, false, 'start server');
     }));
@@ -62606,13 +62616,13 @@ const startServersMaybe = async () => {
  * @param {Number?} waitOnTimeout in seconds
  */
 const waitOnResource = async (waitOn, waitOnTimeout = 60) => {
-    console.log(`waiting on "${waitOn}" with timeout of ${waitOnTimeout} seconds`);
+    actionConsoleLog(`Waiting on "${waitOn}" with timeout of ${waitOnTimeout} seconds`);
     const waitTimeoutMs = waitOnTimeout * 1000;
     const waitResources = waitOn
         .split(/,|\n/)
         .map((s) => s.trim())
         .filter(Boolean);
-    main_debug(`Waiting for resources ${waitResources.join(', ')}`);
+    actionConsoleLog(`Waiting for resources ${waitResources.join(', ')}`);
     return await ping(waitResources, waitTimeoutMs);
 };
 const waitOnMaybe = async () => {
@@ -62620,12 +62630,12 @@ const waitOnMaybe = async () => {
     const shouldWait = getInputBool('wait-if', true);
     if (!waitOn || !shouldWait) {
         if (!shouldWait)
-            console.log('skip waiting on the required resources');
+            actionConsoleLog('Skip waiting on the required resources');
         return;
     }
     const waitOnTimeout = core.getInput('wait-on-timeout') || '60';
     const timeoutSeconds = parseFloat(waitOnTimeout);
-    console.log(`will wait for ${timeoutSeconds} sec`);
+    actionConsoleLog(`Will wait for ${timeoutSeconds} sec`);
     return await waitOnResource(waitOn, timeoutSeconds);
 };
 /**
@@ -62637,7 +62647,7 @@ async function run() {
         await startServersMaybe();
         await waitOnMaybe();
         await runTest();
-        main_debug('all done, exiting');
+        actionConsoleLog('All done, exiting');
         // force exit to avoid waiting for child processes,
         // like the server we have started
         // see https://github.com/actions/toolkit/issues/216
@@ -62647,12 +62657,12 @@ async function run() {
         // final catch - when anything goes wrong, throw an error
         // and exit the action with non-zero code
         if (error instanceof Error) {
-            main_debug(error.message);
+            actionConsoleLog(error.message);
             main_debug(error.stack);
             core.setFailed(error.message);
         }
         else {
-            main_debug('Unkown error happend');
+            actionConsoleLog('Unkown error happend');
             main_debug(error);
             core.setFailed('Unkown error happend');
         }
