@@ -1,5 +1,6 @@
 import Debug from 'debug'
 import waitOn from 'wait-on'
+import { actionConsoleLog } from './util'
 const debug = Debug('background_run_and_test')
 
 /**
@@ -32,13 +33,13 @@ export const ping = async (
 
   // Usage with async await
   try {
-    debug('Start waiting on the requested resources')
+    actionConsoleLog('Start waiting on the requested resources')
     await waitOn(waitOpts)
-    debug('Finished waiting on the requested resources successfully')
+    actionConsoleLog('Finished waiting on the requested resources successfully')
 
     // once here, all resources are available
   } catch (err) {
-    debug('Failed to wait on the requested resources')
+    actionConsoleLog('Failed to wait on the requested resources')
     debug(err)
     throw Error('Failed to wait on the requested resources')
   }
