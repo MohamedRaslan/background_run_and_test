@@ -4,6 +4,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { ping } from './ping'
 import Debug from 'debug'
+import { actionConsoleLog } from './util'
 
 const debug = Debug('background_run_and_test')
 
@@ -17,7 +18,7 @@ const workingDirectory = () =>
 
 const isWindows = (): boolean => os.platform() === 'win32'
 
-debug(`working directory ${workingDirectory}`)
+actionConsoleLog(`Working directory ${workingDirectory}`)
 /**
  * Parses input command, finds the tool and
  * the runs the command.
@@ -29,12 +30,12 @@ export const execCommand = (
 ): Promise<number> | boolean => {
   const cwd = workingDirectory()
 
-  console.log(`${label} command "${fullCommand}"`)
-  console.log(`current working directory "${cwd}"`)
+  actionConsoleLog(`${label} command "${fullCommand}"`)
+  actionConsoleLog(`Current working directory "${cwd}"`)
 
   const executionCode = exec.exec('bash', ['-c', fullCommand], { cwd })
   if (waitToFinish) {
-    debug(`waiting for the command to finish? ${waitToFinish}`)
+    actionConsoleLog(`Waiting for the command to finish? ${waitToFinish}`)
 
     return executionCode
   }
@@ -75,12 +76,12 @@ export async function runTest(): Promise<Array<number | boolean> | boolean> {
     userCommand = core.getInput('command')
   }
   if (!userCommand) {
-    debug('No command found')
+    actionConsoleLog('No command found')
     return false
   }
 
   if (!shouldRun) {
-    console.log('skip running the commands')
+    actionConsoleLog('Skip running the commands')
     return false
   }
   // allow commands to be separated using commas or newlines
@@ -88,7 +89,7 @@ export async function runTest(): Promise<Array<number | boolean> | boolean> {
     .split(/,|\n/)
     .map(s => s.trim())
     .filter(Boolean)
-  debug(
+  actionConsoleLog(
     `Separated ${
       separateCommands.length
     } main commands ${separateCommands.join(', ')}`
@@ -114,12 +115,12 @@ export const startServersMaybe = async (): Promise<
     userStartCommand = core.getInput('start')
   }
   if (!userStartCommand) {
-    debug('No start command found')
+    actionConsoleLog('No start command found')
     return false
   }
 
   if (!shouldStart) {
-    console.log('skip running the start commands')
+    actionConsoleLog('skip running the start commands')
     return false
   }
 
@@ -129,7 +130,7 @@ export const startServersMaybe = async (): Promise<
     .map(s => s.trim())
     .filter(Boolean)
 
-  debug(
+  actionConsoleLog(
     `Separated ${
       separateStartCommands.length
     } start commands ${separateStartCommands.join(', ')}`
@@ -151,7 +152,9 @@ export const waitOnResource = async (
   waitOn: string,
   waitOnTimeout = 60
 ): Promise<void> => {
-  console.log(`waiting on "${waitOn}" with timeout of ${waitOnTimeout} seconds`)
+  actionConsoleLog(
+    `Waiting on "${waitOn}" with timeout of ${waitOnTimeout} seconds`
+  )
 
   const waitTimeoutMs = waitOnTimeout * 1000
 
@@ -159,7 +162,7 @@ export const waitOnResource = async (
     .split(/,|\n/)
     .map((s: string) => s.trim())
     .filter(Boolean)
-  debug(`Waiting for resources ${waitResources.join(', ')}`)
+  actionConsoleLog(`Waiting for resources ${waitResources.join(', ')}`)
 
   return await ping(waitResources, waitTimeoutMs)
 }
@@ -168,7 +171,7 @@ export const waitOnMaybe = async (): Promise<number | void> => {
   const waitOn = core.getInput('wait-on')
   const shouldWait = getInputBool('wait-if', true)
   if (!waitOn || !shouldWait) {
-    if (!shouldWait) console.log('skip waiting on the required resources')
+    if (!shouldWait) actionConsoleLog('Skip waiting on the required resources')
 
     return
   }
@@ -176,7 +179,7 @@ export const waitOnMaybe = async (): Promise<number | void> => {
   const waitOnTimeout = core.getInput('wait-on-timeout') || '60'
   const timeoutSeconds = parseFloat(waitOnTimeout)
 
-  console.log(`will wait for ${timeoutSeconds} sec`)
+  actionConsoleLog(`Will wait for ${timeoutSeconds} sec`)
 
   return await waitOnResource(waitOn, timeoutSeconds)
 }
@@ -189,7 +192,7 @@ export async function run(): Promise<void> {
     await startServersMaybe()
     await waitOnMaybe()
     await runTest()
-    debug('all done, exiting')
+    actionConsoleLog('All done, exiting')
     // force exit to avoid waiting for child processes,
     // like the server we have started
     // see https://github.com/actions/toolkit/issues/216
@@ -198,12 +201,12 @@ export async function run(): Promise<void> {
     // final catch - when anything goes wrong, throw an error
     // and exit the action with non-zero code
     if (error instanceof Error) {
-      debug(error.message)
+      actionConsoleLog(error.message)
       debug(error.stack)
 
       core.setFailed(error.message)
     } else {
-      debug('Unkown error happend')
+      actionConsoleLog('Unkown error happend')
       debug(error)
 
       core.setFailed('Unkown error happend')
