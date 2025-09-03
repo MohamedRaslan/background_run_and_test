@@ -10,6 +10,3 @@ rules:
   excessive-permissions:
     ignore:
       - .github/workflows/release.yml
-
-  template-injection:
-    disable: true
