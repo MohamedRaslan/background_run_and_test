@@ -46,4 +46,5 @@ jobs:
           GITHUB_ACTIONS_COMMAND_ARGS:
             '-ignore ''invalid runner name "node24"'''
           VALIDATE_ALL_CODEBASE: true
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
           VALIDATE_JSCPD: false
