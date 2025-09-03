@@ -18,7 +18,7 @@ const workingDirectory = () =>
 
 const isWindows = (): boolean => os.platform() === 'win32'
 
-actionConsoleLog(`Working directory ${workingDirectory}`)
+actionConsoleLog(`Working directory ${workingDirectory()}`)
 /**
  * Parses input command, finds the tool and
  * the runs the command.

@@ -62518,7 +62518,7 @@ const workingDirectory = () => core.getInput('working-directory')
     ? external_node_path_default().resolve(core.getInput('working-directory'))
     : startWorkingDirectory;
 const isWindows = () => external_node_os_default().platform() === 'win32';
-actionConsoleLog(`Working directory ${workingDirectory}`);
+actionConsoleLog(`Working directory ${workingDirectory()}`);
 /**
  * Parses input command, finds the tool and
  * the runs the command.
@@ -62675,6 +62675,7 @@ async function run() {
  * The entrypoint for the action.
  */
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 run();
 
 
