@@ -15,27 +15,27 @@ describe('Test the "getInputBool" functionality', () => {
     jest.clearAllMocks()
   })
 
-  it('returns true for "true" input', () => {
+  it('Returns true for "true" input', () => {
     jest.spyOn(core, 'getInput').mockReturnValue('true')
     expect(main.getInputBool('test')).toBe(true)
   })
 
-  it('returns true for "1" input', () => {
+  it('Returns true for "1" input', () => {
     jest.spyOn(core, 'getInput').mockReturnValue('1')
     expect(main.getInputBool('test')).toBe(true)
   })
 
-  it('returns false for "false" input', () => {
+  it('Returns false for "false" input', () => {
     jest.spyOn(core, 'getInput').mockReturnValue('false')
     expect(main.getInputBool('test')).toBe(false)
   })
 
-  it('returns false for "0" input', () => {
+  it('Returns false for "0" input', () => {
     jest.spyOn(core, 'getInput').mockReturnValue('false')
     expect(main.getInputBool('test')).toBe(false)
   })
 
-  it('returns default value if input is empty', () => {
+  it('Returns default value if input is empty', () => {
     jest.spyOn(core, 'getInput').mockReturnValue('')
     expect(main.getInputBool('test', true)).toBe(true)
   })

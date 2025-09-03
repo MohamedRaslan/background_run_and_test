@@ -61,7 +61,7 @@ describe('Test the "execCommand" functionality', () => {
     )
     expect(result).toBe(0)
   })
-  it('handles execution failures', async () => {
+  it('Handles execution failures', async () => {
     jest.spyOn(exec, 'exec').mockRejectedValue(new Error('Command failed'))
     await expect(main.execCommand('invalid-command', true)).rejects.toThrow(
       'Command failed'

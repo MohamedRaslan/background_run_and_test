@@ -4,6 +4,6 @@ export const actionConsoleLog = (
   //bgCyan = (46, 49);
   //bgCyanBright = (106, 49);
   message: string,
-  open: number = 36,
-  close: number = 39
+  open = 36,
+  close = 39
 ): void => console.log(`\u001B[${open}m ${message} \u001B[${close}m`)
