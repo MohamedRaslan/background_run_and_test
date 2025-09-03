@@ -1,23 +1,48 @@
+// eslint.config.js
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import github from 'eslint-plugin-github'
 import jest from 'eslint-plugin-jest'
 import globals from 'globals'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-export default [
-  eslint.configs.recommended, // Base ESLint recommendations
-  eslintPluginPrettierRecommended,
-  // Common Settings for All Files
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
+import { defineConfig } from 'eslint/config'
+
+export default defineConfig(
+  // 1. Ignore generated or irrelevant directories
   {
-    plugins: {
-      jest
-    },
+    name: 'ignores',
+    ignores: [
+      '**/*.cjs',
+      '**/*.mjs',
+      '**/*.json',
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/coverage/**',
+      'lib/',
+      'dist/',
+      'coverage/'
+    ]
+  },
+
+  // 2. Base JavaScript recommended rules
+  eslint.configs.recommended,
+
+  // 3. TypeScript recommended rules
+  tseslint.configs.recommended,
+
+  // 4. TypeScript rules that require type-checking
+  tseslint.configs.recommendedTypeChecked,
+
+  // 5. Supply parser options & globals
+  {
+    name: 'type-aware-parser-options',
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2023,
         sourceType: 'module',
-        project: ['./tsconfig.json'] // Adjust this path if needed
-        //  tsconfigRootDir: process.cwd()
+        project: true,
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname
       },
       globals: {
         ...globals.node,
@@ -25,7 +50,12 @@ export default [
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly'
       }
-    },
+    }
+  },
+
+  // 6. Custom common rules
+  {
+    name: 'custom-rules',
     rules: {
       camelcase: 'off',
       'no-console': 'off',
@@ -34,42 +64,20 @@ export default [
       'eslint-comments/no-unused-disable': 'off',
       'i18n-text/no-en': 'off',
       'import/no-namespace': 'off'
-      //'@typescript-eslint/semi': ['error', 'never']
     }
   },
-  {
-    ignores: [
-      '**/*.cjs', // Ignore CommonJS files
-      '**/*.mjs', // Ignore ESM configuration files
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/coverage/**',
-      '**/*.json',
-      'lib/',
-      'dist/',
-      'node_modules/',
-      'coverage/'
-    ]
-  },
 
-  // TypeScript-Specific Settings
+  // 7. TypeScript-specific rules
   {
-    files: ['*.ts'],
+    name: 'typescript-rules',
+    files: ['**/*.ts'],
     rules: {
-      ...tseslint.configs.recommended.rules,
-      '@typescript-eslint/array-type': [
-        'error',
-        {
-          default: 'array-simple'
-        }
-      ],
+      '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
       '@typescript-eslint/await-thenable': 'error',
       '@typescript-eslint/ban-ts-comment': 'error',
       '@typescript-eslint/explicit-function-return-type': [
         'error',
-        {
-          allowExpressions: true
-        }
+        { allowExpressions: true }
       ],
       '@typescript-eslint/no-array-constructor': 'error',
       '@typescript-eslint/no-empty-interface': 'error',
@@ -79,11 +87,8 @@ export default [
       '@typescript-eslint/consistent-type-assertions': 'error',
       '@typescript-eslint/explicit-member-accessibility': [
         'error',
-        {
-          accessibility: 'no-public'
-        }
+        { accessibility: 'no-public' }
       ],
-      //'@typescript-eslint/func-call-spacing': ['error', 'never'],
       '@typescript-eslint/no-extraneous-class': 'error',
       '@typescript-eslint/no-for-in-array': 'error',
       '@typescript-eslint/no-inferrable-types': 'error',
@@ -102,19 +107,25 @@ export default [
       '@typescript-eslint/require-array-sort-compare': 'error',
       '@typescript-eslint/restrict-plus-operands': 'error',
       '@typescript-eslint/space-before-function-paren': 'off',
-      //'@typescript-eslint/type-annotation-spacing': 'error',
       '@typescript-eslint/unbound-method': 'error'
     }
   },
 
-  // Jest Rules
+  // 8. Jest plugin for test files
   {
-    files: ['*.test.js', '*.test.ts'],
+    name: 'jest-tests',
+    files: ['**/*.test.{js,ts}'],
+    plugins: {
+      jest
+    },
     rules: {
       ...jest.configs.recommended.rules
     }
   },
 
-  // GitHub Rules
-  ...github.getFlatConfigs().typescript
-]
+  // 9. GitHub plugin rules
+  ...github.getFlatConfigs().typescript,
+
+  // 10. Prettier (always last to turn off conflicting rules)
+  eslintConfigPrettier
+)
