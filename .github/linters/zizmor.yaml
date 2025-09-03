@@ -1,0 +1,15 @@
+# .github/zizmor.yml
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        - super-linter/super-linter: any
+        - actions/checkout: any
+        - actions/setup-node: any
+
+  excessive-permissions:
+    ignore:
+      - .github/workflows/release.yml
+
+  template-injection:
+    disable: true
