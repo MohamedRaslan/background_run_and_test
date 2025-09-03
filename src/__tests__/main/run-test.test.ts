@@ -18,7 +18,7 @@ describe('Test the "runTest" functionality', () => {
     jest.clearAllMocks()
   })
 
-  it('executes multiple command-windows successfully on win32 ', async () => {
+  it('Executes multiple command-windows successfully on win32', async () => {
     const mockExec = jest.spyOn(exec, 'exec').mockResolvedValue(0)
     jest.spyOn(os, 'platform').mockImplementation(() => 'win32')
     jest.spyOn(core, 'getInput').mockImplementation(name => {
@@ -35,7 +35,7 @@ describe('Test the "runTest" functionality', () => {
     expect(results).toEqual([0, 0])
   })
 
-  it('executes multiple command successfully on win32 ', async () => {
+  it('Executes multiple command successfully on win32', async () => {
     const mockExec = jest.spyOn(exec, 'exec').mockResolvedValue(0)
     jest.spyOn(os, 'platform').mockImplementation(() => 'win32')
     jest.spyOn(core, 'getInput').mockImplementation(name => {
@@ -51,7 +51,7 @@ describe('Test the "runTest" functionality', () => {
     expect(mockExec).toHaveBeenCalledTimes(2)
     expect(results).toEqual([0, 0])
   })
-  it('executes multiple commands successfully on linux', async () => {
+  it('Executes multiple commands successfully on linux', async () => {
     const mockExec = jest.spyOn(exec, 'exec').mockResolvedValue(0)
     jest.spyOn(os, 'platform').mockImplementation(() => 'linux')
 
@@ -69,7 +69,7 @@ describe('Test the "runTest" functionality', () => {
     expect(results).toEqual([0, 0])
   })
 
-  it('skips execution if "command-if" is false', async () => {
+  it('Skips execution if "command-if" is false', async () => {
     jest.spyOn(core, 'getInput').mockImplementation(name => {
       if (name === 'command-if') {
         return 'false' // Return custom value
@@ -83,7 +83,7 @@ describe('Test the "runTest" functionality', () => {
     expect(results).toBeFalsy()
   })
 
-  it('skips execution if no commands was set', async () => {
+  it('Skips execution if no commands was set', async () => {
     jest.spyOn(core, 'getInput').mockImplementation(name => {
       if (name === 'command-if') {
         return 'true' // Return custom value

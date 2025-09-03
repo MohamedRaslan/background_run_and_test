@@ -16,7 +16,7 @@ describe('Test the "waitOnResource" functionality', () => {
     jest.clearAllMocks()
   })
 
-  it('should wait on a single resource successfully', async () => {
+  it('Should wait on a single resource successfully', async () => {
     const resource = 'http://localhost:8080'
     const timeout = 60 //defualt timeout
 
@@ -33,7 +33,7 @@ describe('Test the "waitOnResource" functionality', () => {
     expect(pingMock).toHaveBeenCalledWith(waitResources, timeout * 1000)
   })
 
-  it('should wait on multiple resources successfully', async () => {
+  it('Should wait on multiple resources successfully', async () => {
     const resources = 'http://localhost:8080,http://localhost:8081'
     const timeout = 60 // 60 seconds
 
@@ -49,7 +49,7 @@ describe('Test the "waitOnResource" functionality', () => {
     expect(pingMock).toHaveBeenCalledWith(waitResources, timeout * 1000)
   })
 
-  it('should throw an error if waiting on resources fails', async () => {
+  it('Should throw an error if waiting on resources fails', async () => {
     const resource = 'http://localhost:8080'
     const timeout = 60 // 60 seconds
 
@@ -63,7 +63,7 @@ describe('Test the "waitOnResource" functionality', () => {
     )
   })
 
-  it('should handle timeout correctly', async () => {
+  it('Should handle timeout correctly', async () => {
     const resource = 'http://timeout:1000'
     const timeout = 1 // 1 second
 
@@ -72,7 +72,7 @@ describe('Test the "waitOnResource" functionality', () => {
     )
   })
 
-  it('should handle empty resource input', async () => {
+  it('Should handle empty resource input', async () => {
     const timeout = 60 // 60 seconds
 
     await expect(main.waitOnResource('', timeout)).rejects.toThrow(
