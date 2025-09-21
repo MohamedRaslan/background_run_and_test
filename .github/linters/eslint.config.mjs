@@ -1,7 +1,6 @@
 // eslint.config.js
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
-import github from 'eslint-plugin-github'
 import jest from 'eslint-plugin-jest'
 import globals from 'globals'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
@@ -59,11 +58,7 @@ export default defineConfig(
     rules: {
       camelcase: 'off',
       'no-console': 'off',
-      semi: 'off',
-      'eslint-comments/no-use': 'off',
-      'eslint-comments/no-unused-disable': 'off',
-      'i18n-text/no-en': 'off',
-      'import/no-namespace': 'off'
+      semi: 'off'
     }
   },
 
@@ -123,9 +118,6 @@ export default defineConfig(
     }
   },
 
-  // 9. GitHub plugin rules
-  ...github.getFlatConfigs().typescript,
-
-  // 10. Prettier (always last to turn off conflicting rules)
+  // 9. Prettier (always last)
   eslintConfigPrettier
 )
