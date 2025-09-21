@@ -11,7 +11,7 @@ const debug = Debug('background_run_and_test')
 const startWorkingDirectory = process.cwd()
 // seems the working directory should be absolute to work correctly
 // https://github.com/cypress-io/github-action/issues/211
-const workingDirectory = () =>
+const workingDirectory = (): string =>
   core.getInput('working-directory')
     ? path.resolve(core.getInput('working-directory'))
     : startWorkingDirectory
@@ -28,12 +28,16 @@ export const execCommand = (
   waitToFinish = true,
   label = 'executing'
 ): Promise<number> | boolean => {
-  const cwd = workingDirectory()
+  const cwd: string = workingDirectory()
 
   actionConsoleLog(`${label} command "${fullCommand}"`)
   actionConsoleLog(`Current working directory "${cwd}"`)
 
-  const executionCode = exec.exec('bash', ['-c', fullCommand], { cwd })
+  const executionCode: Promise<number> = exec.exec(
+    'bash',
+    ['-c', fullCommand],
+    { cwd }
+  )
   if (waitToFinish) {
     actionConsoleLog(`Waiting for the command to finish? ${waitToFinish}`)
 

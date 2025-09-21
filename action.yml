@@ -40,8 +40,7 @@ inputs:
   wait-if:
     description: 'Conditionally wait on the resources if true'
     required: false
-
-  cwd:
+  working-directory:
     description: 'Current working directory'
     required: false
 
