@@ -10,7 +10,7 @@ updates:
           - minor
           - patch
     ignore:
-      - dependency-name: 'super-linter/super-linter/slim'
+      - dependency-name: 'super-linter/super-linter'
 
   - package-ecosystem: npm
     directory: /
