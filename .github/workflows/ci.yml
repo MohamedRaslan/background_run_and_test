@@ -23,7 +23,7 @@ jobs:
 
       - name: Setup Node.js
         id: setup-node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
           cache: yarn
@@ -45,7 +45,7 @@ jobs:
         run: yarn ci-test
 
       - name: Publish the reports on GitHub
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: unit-coverage-report-${{ github.sha }}
           retention-days: 3
@@ -63,7 +63,7 @@ jobs:
 
       - name: Setup Node.js
         id: setup-node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
           cache: yarn

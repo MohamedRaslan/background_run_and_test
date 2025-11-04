@@ -9,6 +9,8 @@ updates:
         update-types:
           - minor
           - patch
+    ignore:
+      - dependency-name: 'super-linter/super-linter'
 
   - package-ecosystem: npm
     directory: /
