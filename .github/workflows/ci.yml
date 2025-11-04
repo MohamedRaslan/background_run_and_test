@@ -45,7 +45,7 @@ jobs:
         run: yarn ci-test
 
       - name: Publish the reports on GitHub
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: unit-coverage-report-${{ github.sha }}
           retention-days: 3
