@@ -1,1 +1,1 @@
-yarn commitlint --config '.github/linters/.commitlintrc.cjs' --edit $1
+yarn commitlint --config '.commitlintrc.cjs' --edit $1
