@@ -126,7 +126,7 @@
     "lint-staged": "^16.2.6",
     "make-coverage-badge": "^1.2.0",
     "prettier": "^3.5.3",
-    "semantic-release": "^25.0.1",
+    "semantic-release": "^25.0.2",
     "serve": "^14.2.5",
     "ts-jest": "^29.4.5",
     "typescript": "^5.9.3",
