@@ -101,7 +101,7 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/exec": "^1.1.1",
-    "wait-on": "^9.0.1"
+    "wait-on": "^9.0.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
